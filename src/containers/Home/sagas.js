@@ -12,7 +12,32 @@ function* getListSaga({ payload }) {
         console.log('err: ', err);
     }
 }
+function* setRepoSaga({ payload }) {
+    try {
+        const { name, author } = payload;
+        const { data } = yield call(api.repository.commits, {
+            owner: author,
+            repo: name,
+        });
+        const commits = data.map(({ commit }) => {
+            const {
+                author: { name },
+                tree: { sha },
+                message,
+            } = commit;
+            return { id: sha, author: name, message };
+        });
+        console.log('====================================');
+        console.log('commits: ', commits);
+        console.log('====================================');
+        const repo = Object.assign(payload, { commits: [...commits] });
+        yield put(actions.setRepo(repo));
+    } catch (err) {
+        console.log('err: ', err);
+    }
+}
 
 export default function* homeSagas() {
     yield takeLatest(actions.getList.type, getListSaga);
+    yield takeLatest(actions.setRepo.type, setRepoSaga);
 }

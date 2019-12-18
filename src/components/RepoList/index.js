@@ -8,20 +8,12 @@ class RepoList extends Component {
         super(props);
         this.state = {
             isOpen: false,
-            repo: {
-                description: '',
-                author: '',
-                license: '',
-                language: '',
-                createdAt: '',
-                status: '',
-                openIssues: '',
-            },
         };
     }
 
     formatParams = repository => {
         const {
+            name,
             description = 'N/A',
             owner: { login },
             license,
@@ -31,6 +23,7 @@ class RepoList extends Component {
             open_issues = 'N/A',
         } = repository;
         return {
+            name,
             description,
             author: login,
             license: !license ? 'N/A' : license,
@@ -43,7 +36,8 @@ class RepoList extends Component {
 
     setRepository = repository => {
         const repo = this.formatParams(repository);
-        this.setState({ repo });
+        const { onSetRepo } = this.props;
+        onSetRepo(repo);
     };
 
     onShowModal = repository => {
@@ -53,9 +47,8 @@ class RepoList extends Component {
     };
 
     render() {
-        const { repos } = this.props;
-        const { isOpen, repo } = this.state;
-
+        const { repos, repo } = this.props;
+        const { isOpen } = this.state;
         return (
             <>
                 <RepoDetail

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Text, TouchableHighlight, View, Alert } from 'react-native';
+import { Modal, Text, TouchableHighlight, View, FlatList } from 'react-native';
+import { NameText } from '../RepoList/index.style';
 
 class RepoDetail extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class RepoDetail extends Component {
                 createdAt,
                 status,
                 openIssues,
+                commits,
             },
         } = this.props;
 
@@ -47,6 +49,23 @@ class RepoDetail extends Component {
                             </View>
                             <View>
                                 <Text>Repository Commit List:</Text>
+                            </View>
+                            <View>
+                                <FlatList
+                                    data={commits}
+                                    renderItem={({ item }) => (
+                                        <View>
+                                            <NameText>ID: {item.id}</NameText>
+                                            <NameText>
+                                                Author: {item.author}
+                                            </NameText>
+                                            <NameText>
+                                                Message: {item.message}
+                                            </NameText>
+                                        </View>
+                                    )}
+                                    keyExtractor={item => item.id}
+                                />
                             </View>
                         </View>
                     </View>
