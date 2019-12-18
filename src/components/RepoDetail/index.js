@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import { Modal, Text, TouchableHighlight, View, Alert } from 'react-native';
+import { Modal, Text, TouchableHighlight, View, FlatList } from 'react-native';
+import { NameText } from '../RepoList/index.style';
 
 class RepoDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            description: 'repo.description.name',
-            author: 'repo.author',
-            license: 'repo.author.licence',
-            language: 'repo.author.language',
-            createdAt: 'repo.createdAt',
-            status: 'Public',
-            openIssues: 'repo.openIssues',
-        };
+        this.state = {};
     }
 
     render() {
         const {
-            state: {
+            isOpen,
+            onShowModal,
+            repo: {
                 description,
                 author,
                 license,
@@ -26,9 +21,10 @@ class RepoDetail extends Component {
                 createdAt,
                 status,
                 openIssues,
+                commits,
             },
-            props: { isOpen, handleIsOpen },
-        } = this;
+        } = this.props;
+
         return (
             <>
                 <Modal
@@ -37,8 +33,7 @@ class RepoDetail extends Component {
                     visible={isOpen}>
                     <View style={{ marginTop: 22 }}>
                         <View>
-                            <TouchableHighlight
-                                onPress={() => handleIsOpen(!isOpen)}>
+                            <TouchableHighlight onPress={() => onShowModal()}>
                                 <Text>Hide Modal</Text>
                             </TouchableHighlight>
                             <View>
@@ -54,6 +49,23 @@ class RepoDetail extends Component {
                             </View>
                             <View>
                                 <Text>Repository Commit List:</Text>
+                            </View>
+                            <View>
+                                <FlatList
+                                    data={commits}
+                                    renderItem={({ item }) => (
+                                        <View>
+                                            <NameText>ID: {item.id}</NameText>
+                                            <NameText>
+                                                Author: {item.author}
+                                            </NameText>
+                                            <NameText>
+                                                Message: {item.message}
+                                            </NameText>
+                                        </View>
+                                    )}
+                                    keyExtractor={item => item.id}
+                                />
                             </View>
                         </View>
                     </View>
