@@ -5,20 +5,14 @@ class RepoDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            description: 'repo.description.name',
-            author: 'repo.author',
-            license: 'repo.author.licence',
-            language: 'repo.author.language',
-            createdAt: 'repo.createdAt',
-            status: 'Public',
-            openIssues: 'repo.openIssues',
-        };
+        this.state = {};
     }
 
     render() {
         const {
-            state: {
+            isOpen,
+            onShowModal,
+            repo: {
                 description,
                 author,
                 license,
@@ -27,8 +21,8 @@ class RepoDetail extends Component {
                 status,
                 openIssues,
             },
-            props: { isOpen, handleIsOpen },
-        } = this;
+        } = this.props;
+
         return (
             <>
                 <Modal
@@ -37,8 +31,7 @@ class RepoDetail extends Component {
                     visible={isOpen}>
                     <View style={{ marginTop: 22 }}>
                         <View>
-                            <TouchableHighlight
-                                onPress={() => handleIsOpen(!isOpen)}>
+                            <TouchableHighlight onPress={() => onShowModal()}>
                                 <Text>Hide Modal</Text>
                             </TouchableHighlight>
                             <View>

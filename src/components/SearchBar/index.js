@@ -31,12 +31,12 @@ class SearchBar extends Component {
     handleSearch = () => {
         const { text } = this.state;
         this.storeSearch(text);
-        // const keywordsFormated = text
-        //     .toLowerCase()
-        //     .split(' ')
-        //     .join('+');
-        // const { onGetList } = this.props;
-        // onGetList(keywordsFormated);
+        const keywordsFormated = text
+            .toLowerCase()
+            .split(' ')
+            .join('+');
+        const { onGetList } = this.props;
+        onGetList(keywordsFormated);
     };
 
     render() {

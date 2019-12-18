@@ -10,7 +10,7 @@ const middlewares = [logger, sagaMiddleware];
 
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
-const store = createStore(rootReducer, compose(appliedMiddlewares));
+const store = createStore(rootReducer(), compose(appliedMiddlewares));
 
 sagaMiddleware.run(rootSaga);
 

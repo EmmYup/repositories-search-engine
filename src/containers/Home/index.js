@@ -8,15 +8,12 @@ import RepoList from '../../components/RepoList';
 import { Wrap } from './index.style';
 
 const App = props => {
-    console.log('====================================');
-    console.log(props);
-    console.log('====================================');
     return (
         <View>
             <Wrap>
                 <SearchBar {...props} />
             </Wrap>
-            <RepoList />
+            <RepoList {...props} />
         </View>
     );
 };
