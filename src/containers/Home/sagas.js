@@ -34,16 +34,7 @@ function* setRepoSaga({ payload }) {
     }
 }
 
-function* setLogSaga({ payload }) {
-    try {
-        yield put(actions.setLog(payload));
-    } catch (err) {
-        console.log('err: ', err);
-    }
-}
-
 export default function* homeSagas() {
     yield takeLatest(actions.getList.type, getListSaga);
     yield takeLatest(actions.setRepo.type, setRepoSaga);
-    yield takeLatest(actions.setLog.type, setLogSaga);
 }

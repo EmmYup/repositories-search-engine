@@ -1,7 +1,6 @@
-const propsSelector = ({ app: { repos, repo, logs } }) => ({
+const propsSelector = ({ app: { repos, repo } }) => ({
     repos,
     repo,
-    logs,
 });
 
 export default { propsSelector };
