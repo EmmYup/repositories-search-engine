@@ -4,10 +4,15 @@ import api from '../../services/api';
 
 function* getListSaga({ payload }) {
     try {
+        const keywordsFormated = payload
+            .toLowerCase()
+            .split(' ')
+            .join('+');
         yield put(actions.setLoading());
+        yield put(actions.setLog(payload));
         const {
             data: { items },
-        } = yield call(api.repository.list, payload);
+        } = yield call(api.repository.list, keywordsFormated);
         yield put(actions.setList(items));
         yield put(actions.setLoading());
     } catch (err) {

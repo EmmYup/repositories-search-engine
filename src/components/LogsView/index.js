@@ -6,8 +6,12 @@ import {
     Modal,
     TouchableHighlight,
 } from 'react-native';
-import { LogText, ModalContainer } from './index.style';
-import { CloseText, CloseWrap } from '../../containers/Home/index.style';
+import { LogText } from './index.style';
+import {
+    CloseText,
+    CloseWrap,
+    ModalContainer,
+} from '../../containers/Home/index.style';
 
 const LogsView = ({ logs }) => {
     const [isOpen, showModal] = useState(false);

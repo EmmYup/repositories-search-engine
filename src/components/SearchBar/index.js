@@ -7,7 +7,6 @@ class SearchBar extends Component {
         super(props);
         this.state = {
             text: '',
-            logs: [],
         };
     }
 
@@ -15,26 +14,17 @@ class SearchBar extends Component {
         this.setState({ text });
     };
 
-    saveLog = log => {
-        const { logs } = this.state;
-        const updatedLogs = logs;
-        updatedLogs.push(log);
-        this.setState({ logs: updatedLogs });
-    };
-
     handleSearch = () => {
         const { text } = this.state;
         const { onGetList } = this.props;
-        this.saveLog(text);
-        const keywordsFormated = text
-            .toLowerCase()
-            .split(' ')
-            .join('+');
-        onGetList(keywordsFormated);
+        onGetList(text);
     };
 
     render() {
-        const { text, logs } = this.state;
+        const {
+            state: { text },
+            props: { logs },
+        } = this;
 
         return (
             <>

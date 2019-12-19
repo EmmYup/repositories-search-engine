@@ -23,3 +23,7 @@ export const LoadingContainer = styled(View)`
     justify-content: center;
     align-items: center;
 `;
+
+export const ModalContainer = styled(View)`
+    margin-top: 22px;
+`;

@@ -8,7 +8,11 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { NameText } from '../RepoList/index.style';
-import { CloseText, CloseWrap } from '../../containers/Home/index.style';
+import {
+    CloseText,
+    CloseWrap,
+    ModalContainer,
+} from '../../containers/Home/index.style';
 import { Title, Commit } from './index.style';
 
 class RepoDetail extends Component {
@@ -40,7 +44,7 @@ class RepoDetail extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={isOpen}>
-                    <View style={{ marginTop: 22 }}>
+                    <ModalContainer>
                         <View>
                             <CloseWrap>
                                 <TouchableHighlight
@@ -62,7 +66,7 @@ class RepoDetail extends Component {
                                     <Title>Language:</Title> {language}
                                 </Text>
                                 <Text>
-                                    <Title>{status}:</Title> repository
+                                    <Title>{status}</Title> repository
                                 </Text>
                                 <Text>
                                     <Title>Open Issues:</Title> {openIssues}
@@ -77,36 +81,33 @@ class RepoDetail extends Component {
                             <SafeAreaView>
                                 <FlatList
                                     data={commits}
-                                    renderItem={({ item }) => {
-                                        console.log('item: ', item);
-                                        return (
-                                            <Commit>
-                                                <View>
-                                                    <NameText>
-                                                        <Title>ID: </Title>
-                                                        {item.id}
-                                                    </NameText>
-                                                </View>
-                                                <View>
-                                                    <NameText>
-                                                        <Title>Author: </Title>
-                                                        {item.author}
-                                                    </NameText>
-                                                </View>
-                                                <View>
-                                                    <NameText>
-                                                        <Title>Message: </Title>
-                                                        {item.message}
-                                                    </NameText>
-                                                </View>
-                                            </Commit>
-                                        );
-                                    }}
+                                    renderItem={({ item }) => (
+                                        <Commit>
+                                            <View>
+                                                <NameText>
+                                                    <Title>ID: </Title>
+                                                    {item.id}
+                                                </NameText>
+                                            </View>
+                                            <View>
+                                                <NameText>
+                                                    <Title>Author: </Title>
+                                                    {item.author}
+                                                </NameText>
+                                            </View>
+                                            <View>
+                                                <NameText>
+                                                    <Title>Message: </Title>
+                                                    {item.message}
+                                                </NameText>
+                                            </View>
+                                        </Commit>
+                                    )}
                                     keyExtractor={item => item.id}
                                 />
                             </SafeAreaView>
                         </View>
-                    </View>
+                    </ModalContainer>
                 </Modal>
             </>
         );

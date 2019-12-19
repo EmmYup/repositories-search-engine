@@ -14,6 +14,7 @@ const initialState = {
         commits: [],
     },
     isLoading: false,
+    logs: [],
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -24,6 +25,9 @@ function reducer(state = initialState, { type, payload }) {
             return { ...state, repo: { ...payload } };
         case actions.setLoading.type:
             return { ...state, isLoading: !state.isLoading };
+        case actions.setLog.type:
+            console.log('reducer payload', payload);
+            return { ...state, logs: state.logs.concat([payload]) };
         default:
             return state;
     }
