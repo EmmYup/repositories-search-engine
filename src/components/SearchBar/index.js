@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { TextInput, Button, AsyncStorage } from 'react-native';
+import LogsView from '../LogsView';
 
 class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             text: '',
+            logs: [],
         };
     }
 
@@ -13,34 +15,26 @@ class SearchBar extends Component {
         this.setState({ text });
     };
 
-    storeSearch = async log => {
-        try {
-            const logsArr = await AsyncStorage.getItem('logs');
-            if (!logsArr) {
-                await AsyncStorage.setItem('logs', JSON.stringify([log]));
-            } else {
-                const logs = JSON.parse(logsArr);
-                logs.push(log);
-                await AsyncStorage.setItem('logs', JSON.stringify(logs));
-            }
-        } catch (err) {
-            console.log('err: ', err);
-        }
+    saveLog = log => {
+        const { logs } = this.state;
+        const updatedLogs = logs;
+        updatedLogs.push(log);
+        this.setState({ logs: updatedLogs });
     };
 
     handleSearch = () => {
         const { text } = this.state;
-        this.storeSearch(text);
+        const { onGetList } = this.props;
+        this.saveLog(text);
         const keywordsFormated = text
             .toLowerCase()
             .split(' ')
             .join('+');
-        const { onGetList } = this.props;
         onGetList(keywordsFormated);
     };
 
     render() {
-        const { text } = this.state;
+        const { text, logs } = this.state;
 
         return (
             <>
@@ -49,7 +43,8 @@ class SearchBar extends Component {
                     value={text}
                     onChangeText={this.handleChange}
                 />
-                <Button title="Press me" onPress={this.handleSearch} />
+                <Button title="Search" onPress={this.handleSearch} />
+                <LogsView logs={logs} />
             </>
         );
     }

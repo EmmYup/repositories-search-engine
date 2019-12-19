@@ -5,6 +5,7 @@ import dispatcher from './dispatcher';
 import selectors from './selectors';
 import SearchBar from '../../components/SearchBar';
 import RepoList from '../../components/RepoList';
+import LogsView from '../../components/LogsView';
 import { Wrap } from './index.style';
 
 const App = props => {

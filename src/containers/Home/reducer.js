@@ -13,6 +13,7 @@ const initialState = {
         openIssues: '',
         commits: [],
     },
+    logs: [],
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -21,6 +22,10 @@ function reducer(state = initialState, { type, payload }) {
             return { ...state, repos: [...payload] };
         case actions.setRepo.type:
             return { ...state, repo: { ...payload } };
+        case actions.setLog.type:
+            const logs = state.logs;
+            logs.push(...payload);
+            return { ...state, logs };
         default:
             return state;
     }

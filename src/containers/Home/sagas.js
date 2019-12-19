@@ -27,11 +27,16 @@ function* setRepoSaga({ payload }) {
             } = commit;
             return { id: sha, author: name, message };
         });
-        console.log('====================================');
-        console.log('commits: ', commits);
-        console.log('====================================');
         const repo = Object.assign(payload, { commits: [...commits] });
         yield put(actions.setRepo(repo));
+    } catch (err) {
+        console.log('err: ', err);
+    }
+}
+
+function* setLogSaga({ payload }) {
+    try {
+        yield put(actions.setLog(payload));
     } catch (err) {
         console.log('err: ', err);
     }
@@ -40,4 +45,5 @@ function* setRepoSaga({ payload }) {
 export default function* homeSagas() {
     yield takeLatest(actions.getList.type, getListSaga);
     yield takeLatest(actions.setRepo.type, setRepoSaga);
+    yield takeLatest(actions.setLog.type, setLogSaga);
 }
