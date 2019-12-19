@@ -26,7 +26,7 @@ class RepoList extends Component {
             name,
             description,
             author: login,
-            license: !license ? 'N/A' : license,
+            license: !license || typeof license === 'object' ? 'N/A' : license,
             language,
             createdAt: created_at,
             status: status === true ? 'Private' : 'Public',
@@ -61,7 +61,7 @@ class RepoList extends Component {
                     renderItem={({ item }) => (
                         <TouchableHighlight
                             onPress={() => this.onShowModal(item)}>
-                            <NameText>{item.name}</NameText>
+                            <NameText inputColor="#000">{item.name}</NameText>
                         </TouchableHighlight>
                     )}
                     keyExtractor={item => item.id}

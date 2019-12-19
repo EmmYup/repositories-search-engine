@@ -4,10 +4,12 @@ import api from '../../services/api';
 
 function* getListSaga({ payload }) {
     try {
+        yield put(actions.setLoading());
         const {
             data: { items },
         } = yield call(api.repository.list, payload);
         yield put(actions.setList(items));
+        yield put(actions.setLoading());
     } catch (err) {
         console.log('err: ', err);
     }

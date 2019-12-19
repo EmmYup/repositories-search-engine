@@ -13,6 +13,7 @@ const initialState = {
         openIssues: '',
         commits: [],
     },
+    isLoading: false,
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -21,7 +22,8 @@ function reducer(state = initialState, { type, payload }) {
             return { ...state, repos: [...payload] };
         case actions.setRepo.type:
             return { ...state, repo: { ...payload } };
-            return { ...state, logs };
+        case actions.setLoading.type:
+            return { ...state, isLoading: !state.isLoading };
         default:
             return state;
     }

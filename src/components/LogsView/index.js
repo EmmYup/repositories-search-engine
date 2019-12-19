@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
     Button,
-    Text,
     FlatList,
     View,
     Modal,
     TouchableHighlight,
 } from 'react-native';
+import { LogText, ModalContainer } from './index.style';
+import { CloseText, CloseWrap } from '../../containers/Home/index.style';
 
 const LogsView = ({ logs }) => {
     const [isOpen, showModal] = useState(false);
@@ -19,24 +20,26 @@ const LogsView = ({ logs }) => {
                 onPress={() => showModal(!isOpen)}
             />
             <Modal animationType="slide" transparent={false} visible={isOpen}>
-                <View style={{ marginTop: 22 }}>
+                <ModalContainer>
                     <View>
-                        <TouchableHighlight onPress={() => showModal(!isOpen)}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
+                        <CloseWrap>
+                            <TouchableHighlight
+                                onPress={() => showModal(!isOpen)}>
+                                <CloseText>Close</CloseText>
+                            </TouchableHighlight>
+                        </CloseWrap>
                         <View>
                             <FlatList
                                 data={logs}
                                 renderItem={({ item }) => (
                                     <View>
-                                        <Text>{item}</Text>
+                                        <LogText>{item}</LogText>
                                     </View>
                                 )}
-                                // keyExtractor={item => item.id}
                             />
                         </View>
                     </View>
-                </View>
+                </ModalContainer>
             </Modal>
         </View>
     );
