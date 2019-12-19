@@ -8,7 +8,6 @@ import { name as appName } from './app.json';
 import { store } from './src/store';
 import ConnectApp from './src/hocs/provider';
 import theme from './src/services/theme';
-import 'react-native-gesture-handler';
 
 const ProvidedApp = ConnectApp(store, theme)(App);
 
